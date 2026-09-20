@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motlob | اطلب العربية اللي عايزها</title>
+<meta name="description" content="Motlob منصة لطلب السيارات، تتيح لك تحديد السيارة التي تبحث عنها واستقبال عروض من أصحاب السيارات والتجار.">
+<meta property="og:title" content="Motlob | اطلب العربية اللي عايزها">
+<meta property="og:description" content="اطلب عربيتك، وخلي العروض تيجيلك.">
+<meta property="og:type" content="website">
+<link rel="icon" href="motlob-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#132049;
+    --navy-2:#0B1330;
+    --red:#C31C2A;
+    --red-dark:#9A1420;
+    --ink:#15171C;
+    --gray:#5B6070;
+    --gray-light:#8A8F9C;
+    --line:#E4E6EC;
+    --paper:#F5F6F9;
+    --white:#FFFFFF;
+    --ok:#1E8E5A;
+    --warn:#B4790A;
+    --radius:10px;
+    --radius-lg:16px;
+    --shadow:0 1px 2px rgba(15,20,40,.06), 0 8px 24px -12px rgba(15,20,40,.12);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    direction:rtl;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .hidden{display:none !important;}
+  :focus-visible{outline:3px solid var(--red);outline-offset:2px;}
+
+  /* ---------- diagonal stripe motif (borrowed from logo) ---------- */
+  .stripes{
+    background-image:repeating-linear-gradient(115deg, currentColor 0 3px, transparent 3px 10px);
+    opacity:.14;
+  }
+
+  /* ---------- top nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:auto;}
+  .nav-links{display:flex;align-items:center;gap:28px;}
+  .nav-links a{font-weight:600;font-size:15px;color:var(--navy);padding:8px 2px;border-bottom:2px solid transparent;transition:border-color .15s;}
+  .nav-links a:hover{border-color:var(--red);}
+  .nav-cta{display:flex;align-items:center;gap:10px;}
+  .burger{display:none;background:none;border:0;padding:8px;}
+  .burger span{display:block;width:22px;height:2px;background:var(--navy);margin:5px 0;border-radius:2px;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 24px;border-radius:9px;font-weight:700;font-size:15px;
+    border:1.5px solid transparent;transition:transform .12s ease, box-shadow .12s ease, background .15s, color .15s, border-color .15s;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:var(--red-dark);}
+  .btn-navy{background:var(--navy);color:#fff;}
+  .btn-navy:hover{background:var(--navy-2);}
+  .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy);}
+  .btn-outline:hover{background:var(--navy);color:#fff;}
+  .btn-outline-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
+  .btn-outline-white:hover{background:rgba(255,255,255,.12);border-color:#fff;}
+  .btn-ghost{background:transparent;color:var(--navy);}
+  .btn-ghost:hover{background:var(--line);}
+  .btn-sm{padding:8px 14px;font-size:13px;border-radius:7px;}
+  .btn-danger{background:#fff;color:var(--red);border-color:var(--red);}
+  .btn-danger:hover{background:var(--red);color:#fff;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+  .btn-block{width:100%;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
+    color:#fff;overflow:hidden;
+  }
+  .hero-stripes{position:absolute;inset:0;color:#fff;pointer-events:none;}
+  .hero-stripes .s1{position:absolute;top:-20%;left:-10%;width:55%;height:160%;transform:rotate(18deg);}
+  .hero-inner{
+    position:relative;z-index:2;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:56px;
+    padding:96px 0 84px;align-items:center;
+  }
+  .eyebrow-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;color:#EDEFF7;
+    margin-bottom:22px;
+  }
+  .eyebrow-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--red);}
+  .hero h1{
+    font-size:clamp(34px,4.6vw,58px);line-height:1.14;font-weight:900;margin:0 0 20px;
+  }
+  .hero p.lead{font-size:19px;line-height:1.7;color:#C9CEE0;max-width:52ch;margin:0 0 34px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-visual{
+    position:relative;background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);
+    padding:30px;
+  }
+  .hero-visual .tag-line{font-size:15px;color:#B9BFDA;margin:0 0 14px;font-weight:600;}
+  .flow-mini{display:flex;flex-direction:column;gap:0;}
+  .flow-mini .step{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,.14);}
+  .flow-mini .step:last-child{border-bottom:none;}
+  .flow-mini .num{
+    flex:none;width:34px;height:34px;border-radius:50%;background:var(--red);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;
+  }
+  .flow-mini .txt{font-size:15px;color:#E7E9F3;font-weight:600;}
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0;}
+  .section-head{max-width:640px;margin:0 0 48px;}
+  .section-tag{color:var(--red);font-weight:700;font-size:14px;margin:0 0 10px;}
+  .section-head h2{font-size:clamp(26px,3vw,36px);font-weight:800;margin:0 0 12px;color:var(--navy);}
+  .section-head p{color:var(--gray);font-size:16px;line-height:1.7;margin:0;}
+
+  .how-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+  .how-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;position:relative;}
+  .how-card .num{font-weight:900;font-size:26px;color:var(--red);margin:0 0 14px;font-variant-numeric:tabular-nums;}
+  .how-card h3{font-size:16px;margin:0 0 8px;color:var(--navy);}
+  .how-card p{font-size:14px;color:var(--gray);line-height:1.6;margin:0;}
+  .how-arrow{position:absolute;top:24px;left:-11px;color:var(--line);font-size:20px;}
+
+  .why-section{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .why-card{padding:6px 0;}
+  .why-icon{
+    width:46px;height:46px;border-radius:10px;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--navy);
+    border:1px solid var(--line);
+  }
+  .why-card h3{font-size:17px;margin:0 0 8px;color:var(--navy);}
+  .why-card p{font-size:14px;color:var(--gray);line-height:1.7;margin:0;}
+
+  .latest-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;}
+  .latest-head .section-head{margin-bottom:0;}
+  .req-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+
+  .cta-band{
+    background:var(--navy);color:#fff;border-radius:var(--radius-lg);
+    padding:56px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;
+    position:relative;overflow:hidden;
+  }
+  .cta-band h2{font-size:28px;margin:0 0 8px;font-weight:800;}
+  .cta-band p{margin:0;color:#C9CEE0;font-size:15px;}
+  .cta-actions{display:flex;gap:12px;flex-none;}
+
+  footer{background:var(--navy-2);color:#B9BFDA;padding:56px 0 28px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1);}
+  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .foot-brand img{height:28px;filter:brightness(0) invert(1);}
+  footer h4{color:#fff;font-size:14px;margin:0 0 14px;}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  footer a{font-size:14px;color:#B9BFDA;}
+  footer a:hover{color:#fff;}
+  .foot-bottom{padding-top:22px;font-size:13px;display:flex;justify-content:space-between;color:#8890AD;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- generic page header (inner pages) ---------- */
+  .page-header{background:var(--navy);color:#fff;padding:52px 0;}
+  .page-header h1{font-size:30px;font-weight:800;margin:0 0 8px;}
+  .page-header p{color:#C9CEE0;margin:0;font-size:15px;}
+  .breadcrumb{font-size:13px;color:#9BA3C4;margin-bottom:12px;}
+  .breadcrumb a:hover{color:#fff;}
+
+  /* ---------- forms ---------- */
+  .form-shell{max-width:760px;margin:0 auto;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow);}
+  .form-section-title{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 4px;padding-top:22px;border-top:1px solid var(--line);}
+  .form-section-title:first-child{padding-top:0;border-top:none;}
+  .form-section-sub{font-size:13px;color:var(--gray-light);margin:0 0 18px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+  .field .req{color:var(--red);}
+  .field input[type=text],
+  .field input[type=tel],
+  .field input[type=number],
+  .field input[type=email],
+  .field select,
+  .field textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;
+    font-size:15px;color:var(--ink);background:#fff;transition:border-color .15s, box-shadow .15s;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--navy);box-shadow:0 0 0 3px rgba(19,32,73,.10);outline:none;
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .field .hint{font-size:12.5px;color:var(--gray-light);margin-top:6px;}
+  .field .err{font-size:12.5px;color:var(--red);margin-top:6px;display:none;font-weight:600;}
+  .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--red);background:#FDF3F3;}
+  .field.has-error .err{display:block;}
+  .seg{display:flex;gap:8px;flex-wrap:wrap;}
+  .seg label{
+    flex:1;min-width:90px;text-align:center;border:1.5px solid var(--line);border-radius:8px;
+    padding:10px 8px;font-size:13.5px;font-weight:700;color:var(--navy);cursor:pointer;transition:all .15s;
+    margin:0;
+  }
+  .seg input{position:absolute;opacity:0;pointer-events:none;}
+  .seg input:checked + label,
+  .seg label.checked{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .checkline{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--gray);line-height:1.6;}
+  .checkline input{margin-top:3px;flex:none;}
+  .file-drop{
+    border:1.5px dashed var(--line);border-radius:8px;padding:22px;text-align:center;background:var(--paper);
+    font-size:13.5px;color:var(--gray-light);cursor:pointer;
+  }
+  .file-drop input{display:none;}
+  .file-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .file-chip{
+    display:flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);
+    border-radius:999px;padding:6px 10px;font-size:12.5px;color:var(--navy);font-weight:600;
+  }
+  .file-chip button{background:none;border:none;color:var(--gray-light);font-size:14px;line-height:1;padding:0;}
+  .form-foot{display:flex;justify-content:flex-start;gap:12px;margin-top:8px;}
+
+  /* success screens */
+  .success-shell{max-width:560px;margin:60px auto;text-align:center;}
+  .success-icon{
+    width:74px;height:74px;border-radius:50%;background:#E9F7EF;color:var(--ok);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:34px;
+  }
+  .success-shell h2{font-size:24px;color:var(--navy);margin:0 0 10px;}
+  .id-badge{
+    display:inline-block;background:var(--navy);color:#fff;font-weight:800;letter-spacing:.5px;
+    padding:9px 18px;border-radius:8px;font-size:16px;margin:14px 0;font-variant-numeric:tabular-nums;
+  }
+  .success-shell .msg{font-size:15px;color:var(--gray);line-height:1.8;margin:0 0 10px;}
+  .keep-note{
+    background:#FFF8EA;border:1px solid #F2E1B3;color:#8A6110;font-size:13.5px;border-radius:8px;
+    padding:12px 16px;margin:18px 0;
+  }
+
+  /* ---------- public requests board ---------- */
+  .board{display:grid;grid-template-columns:270px 1fr;gap:28px;align-items:start;padding-top:40px;padding-bottom:90px;}
+  .filters{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+    position:sticky;top:92px;
+  }
+  .filters h3{font-size:15px;margin:0 0 16px;color:var(--navy);}
+  .filters .field{margin-bottom:14px;}
+  .filters .field label{font-size:12.5px;color:var(--gray);font-weight:700;margin-bottom:5px;}
+  .filters input,.filters select{padding:9px 10px;font-size:13.5px;}
+  .board-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:16px;flex-wrap:wrap;}
+  .search-box{position:relative;flex:1;min-width:220px;}
+  .search-box input{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;}
+  .count-tag{font-size:13.5px;color:var(--gray-light);white-space:nowrap;}
+  .req-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .req-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+    display:flex;flex-direction:column;gap:14px;transition:box-shadow .15s, transform .15s;
+  }
+  .req-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+  .req-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .req-card .rid{font-size:12px;color:var(--gray-light);font-weight:700;font-variant-numeric:tabular-nums;}
+  .req-card .car-name{font-size:18px;font-weight:800;color:var(--navy);margin:2px 0 0;}
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;
+    font-size:12px;font-weight:700;white-space:nowrap;
+  }
+  .badge-new{background:#EAF1FF;color:#2455C7;}
+  .badge-review{background:#FFF3E0;color:var(--warn);}
+  .badge-published{background:#EAF7EE;color:var(--ok);}
+  .badge-offers{background:#FDEFEF;color:var(--red);}
+  .badge-completed{background:#EDEDF4;color:var(--navy);}
+  .badge-rejected{background:#F2F2F4;color:var(--gray-light);}
+  .spec-list{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;font-size:13px;}
+  .spec-list .k{color:var(--gray-light);}
+  .spec-list .v{color:var(--ink);font-weight:700;}
+  .req-card .notes-mini{font-size:13px;color:var(--gray);line-height:1.6;border-top:1px dashed var(--line);padding-top:12px;margin:0;}
+  .empty-state{
+    grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--gray-light);
+    border:1.5px dashed var(--line);border-radius:var(--radius);background:#fff;
+  }
+  .empty-state .ei{font-size:34px;margin-bottom:12px;}
+  .empty-state h3{color:var(--navy);font-size:17px;margin:0 0 8px;}
+  .empty-state p{font-size:14px;margin:0 0 18px;}
+
+  /* ---------- notices (free for buyer / fee for seller) ---------- */
+  .notice{
+    display:flex;gap:12px;align-items:flex-start;border-radius:10px;
+    padding:14px 16px;margin-bottom:22px;font-size:14px;line-height:1.8;
+  }
+  .notice .ni{
+    flex:none;width:28px;height:28px;border-radius:50%;margin-top:1px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;
+  }
+  .notice .nb{flex:1;min-width:0;}
+  .notice strong{display:block;font-size:14.5px;margin-bottom:2px;}
+  .notice-free{background:#E9F7EF;border:1px solid #BFE3CF;color:#17694A;}
+  .notice-free .ni{background:var(--ok);}
+  .notice-fee{background:#FFF8EA;border:1px solid #F2E1B3;color:#8A6110;}
+  .notice-fee .ni{background:var(--warn);}
+  .notice + .form-section-title{border-top:none;padding-top:0;}
+  .fee-details{margin-top:8px;}
+  .fee-details summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--navy);}
+  .fee-table-wrap{overflow-x:auto;}
+  .fee-table{
+    width:100%;border-collapse:collapse;margin-top:10px;background:#fff;
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px;color:var(--ink);
+  }
+  .fee-table th,.fee-table td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);}
+  .fee-table th{background:var(--paper);color:var(--gray);font-size:12px;font-weight:700;}
+  .fee-table tr:last-child td{border-bottom:none;}
+  .fee-table td:last-child{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .fee-table tr.active td{background:#FDEFEF;color:var(--red);font-weight:800;}
+  .fee-bar{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;margin:8px 0 18px;
+  }
+  .fee-bar .fl{font-size:13.5px;color:var(--gray);font-weight:600;line-height:1.7;}
+  .fee-bar .fv{font-size:20px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums;}
+  .fee-bar .fv.muted{font-size:13.5px;font-weight:600;color:var(--gray-light);}
+
+  /* ---------- offer form context ---------- */
+  .ctx-card{
+    background:var(--navy);color:#fff;border-radius:var(--radius-lg);padding:22px 26px;margin-bottom:26px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .ctx-card .rid{font-size:12px;color:#AEB6D9;font-weight:700;}
+  .ctx-card .car{font-size:19px;font-weight:800;margin-top:3px;}
+  .ctx-card .specs{font-size:13px;color:#C9CEE0;margin-top:6px;}
+
+  /* ---------- admin login ---------- */
+  .admin-login-shell{max-width:400px;margin:90px auto;}
+  .admin-login-shell .card{text-align:center;}
+  .admin-login-shell .lock{
+    width:56px;height:56px;border-radius:50%;background:var(--paper);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:24px;color:var(--navy);
+  }
+  .admin-login-shell h2{font-size:20px;margin:0 0 6px;color:var(--navy);}
+  .admin-login-shell p.sub{font-size:13.5px;color:var(--gray-light);margin:0 0 24px;}
+  .demo-note{
+    background:#FFF8EA;border:1px solid #F2E1B3;color:#8A6110;font-size:12.5px;border-radius:8px;
+    padding:10px 14px;margin-top:18px;text-align:right;line-height:1.7;
+  }
+
+  /* ---------- admin dashboard ---------- */
+  .admin-shell{display:flex;min-height:calc(100vh - 0px);}
+  .admin-side{
+    width:230px;flex:none;background:var(--navy-2);color:#C9CEE0;padding:22px 0;
+    position:sticky;top:0;height:100vh;
+  }
+  .admin-side .brand-row{display:flex;align-items:center;gap:10px;padding:0 22px 22px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
+  .admin-side .brand-row img{height:26px;filter:brightness(0) invert(1);}
+  .admin-nav a{
+    display:flex;align-items:center;gap:10px;padding:12px 22px;font-size:14px;font-weight:600;
+    border-right:3px solid transparent;color:#AEB6D9;
+  }
+  .admin-nav a.active,.admin-nav a:hover{background:rgba(255,255,255,.05);color:#fff;border-color:var(--red);}
+  .admin-side .logout{padding:16px 22px;margin-top:auto;}
+  .admin-main{flex:1;min-width:0;padding:32px 36px 60px;}
+  .admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
+  .admin-topbar h1{font-size:22px;color:var(--navy);margin:0;}
+  .stat-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;margin-bottom:28px;}
+  .stat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;}
+  .stat-card .n{font-size:24px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums;}
+  .stat-card .l{font-size:12px;color:var(--gray-light);margin-top:4px;font-weight:600;}
+  .admin-toolbar{
+    display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;
+  }
+  .admin-toolbar .search-box{max-width:280px;}
+  .toolbar-filters{display:flex;gap:10px;flex-wrap:wrap;}
+  .toolbar-filters select,.toolbar-filters input{
+    padding:9px 10px;border:1.5px solid var(--line);border-radius:7px;font-size:13px;
+  }
+  table.admin-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  table.admin-table th{
+    text-align:right;font-size:12.5px;color:var(--gray-light);font-weight:700;
+    padding:13px 14px;background:var(--paper);border-bottom:1px solid var(--line);white-space:nowrap;
+  }
+  table.admin-table td{padding:13px 14px;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  table.admin-table tr:last-child td{border-bottom:none;}
+  table.admin-table tr:hover td{background:#FAFAFD;}
+  .row-actions{display:flex;gap:6px;flex-wrap:wrap;}
+  .icon-link{color:var(--navy);font-weight:700;font-size:12.5px;cursor:pointer;}
+  .icon-link:hover{color:var(--red);}
+  .mono{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);}
+
+  /* modal / detail drawer */
+  .overlay{
+    position:fixed;inset:0;background:rgba(11,19,48,.5);z-index:100;
+    display:flex;justify-content:flex-end;
+  }
+  .drawer{
+    width:min(680px,94vw);background:#fff;height:100%;overflow-y:auto;
+    box-shadow:-10px 0 30px rgba(0,0,0,.15);
+  }
+  .drawer-head{
+    position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);
+    padding:20px 26px;display:flex;justify-content:space-between;align-items:center;z-index:2;
+  }
+  .drawer-head h2{font-size:18px;margin:0;color:var(--navy);}
+  .drawer-close{background:var(--paper);border:1px solid var(--line);border-radius:8px;width:34px;height:34px;font-size:16px;color:var(--gray);}
+  .drawer-body{padding:24px 26px 50px;}
+  .detail-block{margin-bottom:26px;}
+  .detail-block h3{font-size:14px;color:var(--navy);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  .kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;}
+  .kv{font-size:13.5px;}
+  .kv .k{color:var(--gray-light);font-size:12px;margin-bottom:3px;}
+  .kv .v{font-weight:700;color:var(--ink);}
+  .offer-item{border:1px solid var(--line);border-radius:9px;padding:16px;margin-bottom:12px;}
+  .offer-item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
+  .offer-item .oid{font-size:11.5px;color:var(--gray-light);font-weight:700;}
+  .offer-item .car{font-weight:800;color:var(--navy);font-size:15px;margin-top:2px;}
+  .status-select{padding:6px 8px;border:1.5px solid var(--line);border-radius:6px;font-size:12.5px;font-weight:700;}
+  .note-item{background:var(--paper);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:8px;}
+  .note-item .d{font-size:11px;color:var(--gray-light);margin-top:4px;}
+  .add-note-row{display:flex;gap:8px;margin-top:10px;}
+  .add-note-row input{flex:1;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:13px;}
+  .confirm-actions{display:flex;gap:10px;justify-content:flex-start;margin-top:8px;}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--navy);color:#fff;padding:14px 22px;border-radius:9px;font-size:14px;font-weight:600;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1fr;padding:60px 0;}
+    .how-grid{grid-template-columns:repeat(2,1fr);}
+    .how-arrow{display:none;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .req-grid{grid-template-columns:1fr;}
+    .board{grid-template-columns:1fr;}
+    .filters{position:static;}
+    .stat-grid{grid-template-columns:repeat(3,1fr);}
+    .foot-grid{grid-template-columns:1fr;gap:28px;}
+    .admin-side{display:none;}
+    .req-cards{grid-template-columns:1fr;}
+  }
+  @media (max-width:680px){
+    .nav-links{display:none;}
+    .burger{display:block;}
+    .grid2,.grid3{grid-template-columns:1fr;}
+    .cta-band{flex-direction:column;text-align:center;padding:40px 24px;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .card{padding:24px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#home" data-nav="home">
+      <img src="motlob-logo.jpg" alt="Motlob">
+    </a>
+    <nav class="nav-links">
+      <a href="#home" data-nav="home">الرئيسية</a>
+      <a href="#requests" data-nav="requests">العربيات المطلوبة</a>
+      <a href="#new-request" data-nav="new-request">اطلب عربيتك</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-outline btn-sm" href="#requests" data-nav="requests">عندي عربية مطلوبة</a>
+      <a class="btn btn-primary btn-sm" href="#new-request" data-nav="new-request">اطلب عربيتك</a>
+    </div>
+    <button class="burger" id="burgerBtn" aria-label="القائمة"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ HOME ============ -->
+<main id="view-home">
+  <section class="hero">
+    <div class="hero-stripes"><div class="s1 stripes"></div></div>
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow-tag"><span class="dot"></span> منصة طلب السيارات الأولى في مصر</span>
+        <h1>مش لاقي العربية اللي عايزها؟</h1>
+        <p class="lead">اطلبها، وخلي أصحاب العربيات والتجار يقدموا لك عروضهم. أنت تطلب العربية، وأصحابها يقدموا لك عروضهم.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#new-request" data-nav="new-request">اطلب عربيتك</a>
+          <a class="btn btn-outline-white" href="#requests" data-nav="requests">شوف الطلبات</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <p class="tag-line">اطلب عربيتك، وخلي العروض تيجيلك.</p>
+        <div class="flow-mini">
+          <div class="step"><span class="num">1</span><span class="txt">اطلب العربية</span></div>
+          <div class="step"><span class="num">2</span><span class="txt">نراجع طلبك</span></div>
+          <div class="step"><span class="num">3</span><span class="txt">يظهر طلبك على الموقع</span></div>
+          <div class="step"><span class="num">4</span><span class="txt">أصحاب العربيات يقدموا عروضهم</span></div>
+          <div class="step"><span class="num">5</span><span class="txt">نراجع العروض ونتواصل معك</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-tag">طريقة العمل</p>
+        <h2>خمس خطوات، وتلاقي عربيتك</h2>
+        <p>كل طلب بيتراجع يدويًا قبل ما ينزل على الموقع، وكل عرض بيتراجع قبل ما يوصلك.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card"><span class="num">01</span><h3>اطلب العربية</h3><p>احكيلنا مواصفات العربية اللي بتدور عليها وميزانيتك.</p><span class="how-arrow">‹</span></div>
+        <div class="how-card"><span class="num">02</span><h3>نراجع طلبك</h3><p>فريق Motlob يراجع بيانات الطلب خلال يومين.</p><span class="how-arrow">‹</span></div>
+        <div class="how-card"><span class="num">03</span><h3>يظهر طلبك</h3><p>الطلب بينشر على الموقع بدون بياناتك الشخصية.</p><span class="how-arrow">‹</span></div>
+        <div class="how-card"><span class="num">04</span><h3>تيجي العروض</h3><p>أصحاب العربيات والتجار يقدموا عروضهم على طلبك.</p><span class="how-arrow">‹</span></div>
+        <div class="how-card"><span class="num">05</span><h3>نتواصل معك</h3><p>نراجع العروض المناسبة وننسق بينك وبين البائع.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY MOTLOB -->
+  <section class="why-section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-tag">ليه Motlob</p>
+        <h2>مختلفة عن مواقع الإعلانات التقليدية</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">◧</div>
+          <h3>وقتك محسوب</h3>
+          <p>مش هتدور بين آلاف الإعلانات، العروض هي اللي هتيجيلك.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">◨</div>
+          <h3>بياناتك محمية</h3>
+          <p>رقمك مش بيوصل لحد غير Admin، والتواصل بيتم يدويًا معاك.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">◫</div>
+          <h3>مراجعة بشرية</h3>
+          <p>كل طلب وكل عرض بيتراجع قبل ما ينشر أو يوصلك.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">◩</div>
+          <h3>واجهة نظيفة</h3>
+          <p>تصميم بسيط ومباشر، من غير زحمة إعلانات.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST REQUESTS -->
+  <section>
+    <div class="wrap">
+      <div class="latest-head">
+        <div class="section-head">
+          <p class="section-tag">أحدث الطلبات</p>
+          <h2>عربيات مطلوبة حاليًا</h2>
+        </div>
+        <a class="btn btn-outline btn-sm" href="#requests" data-nav="requests">شوف كل الطلبات</a>
+      </div>
+      <div class="req-grid" id="latestRequestsGrid"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>عندك عربية للبيع؟</h2>
+          <p>شوف الطلبات المنشورة وقدّم عرضك على العربية اللي تناسبك.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#requests" data-nav="requests">عندي عربية مطلوبة</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ BUYER: NEW REQUEST ============ -->
+<main id="view-new-request" class="hidden">
+  <div class="page-header">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="#home" data-nav="home">Motlob</a> / اطلب عربيتك</p>
+      <h1>اطلب عربيتك</h1>
+      <p>احكيلنا مواصفات العربية اللي بتدور عليها، وسيبلنا الباقي.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="form-shell">
+        <form class="card" id="requestForm" novalidate>
+
+          <div class="notice notice-free" role="note">
+            <span class="ni" aria-hidden="true">✓</span>
+            <div class="nb">
+              <strong>طلبك مجاني تمامًا</strong>
+              إنت كمشتري مش هتدفع أي فلوس، لا لنشر طلبك ولا لاستقبال العروض عليه.
+            </div>
+          </div>
+
+          <p class="form-section-title">بياناتك</p>
+          <p class="form-section-sub">هنستخدمها للتواصل معاك بخصوص طلبك فقط.</p>
+          <div class="grid2">
+            <div class="field" data-field="name">
+              <label>الاسم بالكامل <span class="req">*</span></label>
+              <input type="text" name="name" placeholder="مثال: أحمد محمود">
+              <p class="err">من فضلك اكتب اسمك بالكامل.</p>
+            </div>
+            <div class="field" data-field="phone">
+              <label>رقم الهاتف <span class="req">*</span></label>
+              <input type="tel" name="phone" placeholder="01xxxxxxxxx">
+              <p class="err">رقم الهاتف غير صحيح.</p>
+            </div>
+            <div class="field" data-field="governorate">
+              <label>المحافظة <span class="req">*</span></label>
+              <select name="governorate">
+                <option value="">اختر المحافظة</option>
+              </select>
+              <p class="err">من فضلك اختر المحافظة.</p>
+            </div>
+            <div class="field" data-field="city">
+              <label>المنطقة / المدينة <span class="req">*</span></label>
+              <input type="text" name="city" placeholder="مثال: مدينة نصر">
+              <p class="err">من فضلك اكتب المنطقة أو المدينة.</p>
+            </div>
+          </div>
+
+          <p class="form-section-title">مواصفات العربية</p>
+          <p class="form-section-sub">كل ما كانت التفاصيل أدق، كل ما كانت العروض أنسب.</p>
+          <div class="grid2">
+            <div class="field" data-field="brand">
+              <label>ماركة السيارة <span class="req">*</span></label>
+              <input type="text" name="brand" placeholder="مثال: Toyota">
+              <p class="err">من فضلك اكتب ماركة السيارة.</p>
+            </div>
+            <div class="field" data-field="model">
+              <label>الموديل <span class="req">*</span></label>
+              <input type="text" name="model" placeholder="مثال: Corolla">
+              <p class="err">من فضلك اكتب الموديل.</p>
+            </div>
+            <div class="field" data-field="yearFrom">
+              <label>سنة الموديل من <span class="req">*</span></label>
+              <input type="number" name="yearFrom" placeholder="2018" min="1980" max="2026">
+              <p class="err">أدخل سنة صحيحة.</p>
+            </div>
+            <div class="field" data-field="yearTo">
+              <label>سنة الموديل إلى <span class="req">*</span></label>
+              <input type="number" name="yearTo" placeholder="2021" min="1980" max="2026">
+              <p class="err">السنة يجب أن تكون بعد سنة "من".</p>
+            </div>
+            <div class="field" data-field="budgetMin">
+              <label>أقل ميزانية (جنيه) <span class="req">*</span></label>
+              <input type="number" name="budgetMin" placeholder="600000" min="0">
+              <p class="err">أدخل رقمًا صحيحًا.</p>
+            </div>
+            <div class="field" data-field="budgetMax">
+              <label>أقصى ميزانية (جنيه) <span class="req">*</span></label>
+              <input type="number" name="budgetMax" placeholder="800000" min="0">
+              <p class="err">الميزانية القصوى يجب أن تكون أكبر من الأقل.</p>
+            </div>
+            <div class="field" data-field="maxKm">
+              <label>أقصى عدد كيلومترات <span class="req">*</span></label>
+              <input type="number" name="maxKm" placeholder="120000" min="0">
+              <p class="err">أدخل رقمًا صحيحًا.</p>
+            </div>
+          </div>
+
+          <div class="field" data-field="transmission">
+            <label>نوع ناقل الحركة <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="transmission" id="tr1" value="أوتوماتيك"><label for="tr1">أوتوماتيك</label>
+              <input type="radio" name="transmission" id="tr2" value="مانيوال"><label for="tr2">مانيوال</label>
+              <input type="radio" name="transmission" id="tr3" value="لا يهم"><label for="tr3">لا يهم</label>
+            </div>
+            <p class="err">من فضلك اختر نوع ناقل الحركة.</p>
+          </div>
+
+          <div class="field" data-field="fuel">
+            <label>نوع الوقود <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="fuel" id="f1" value="بنزين"><label for="f1">بنزين</label>
+              <input type="radio" name="fuel" id="f2" value="ديزل"><label for="f2">ديزل</label>
+              <input type="radio" name="fuel" id="f3" value="غاز"><label for="f3">غاز</label>
+              <input type="radio" name="fuel" id="f4" value="Hybrid"><label for="f4">Hybrid</label>
+              <input type="radio" name="fuel" id="f5" value="لا يهم"><label for="f5">لا يهم</label>
+            </div>
+            <p class="err">من فضلك اختر نوع الوقود.</p>
+          </div>
+
+          <div class="field" data-field="condition">
+            <label>حالة السيارة المطلوبة <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="condition" id="c1" value="مستعملة"><label for="c1">مستعملة</label>
+              <input type="radio" name="condition" id="c2" value="جديدة"><label for="c2">جديدة</label>
+              <input type="radio" name="condition" id="c3" value="لا يهم"><label for="c3">لا يهم</label>
+            </div>
+            <p class="err">من فضلك اختر حالة السيارة.</p>
+          </div>
+
+          <div class="field">
+            <label>أي مواصفات أو شروط إضافية</label>
+            <textarea name="extra" placeholder="مثال: لونها فاتح، فبريكا أصلي، مفيش حوادث..."></textarea>
+          </div>
+
+          <div class="field" data-field="agree" style="margin-top:22px;">
+            <label class="checkline">
+              <input type="checkbox" name="agree">
+              <span>أوافق على تواصل فريق Motlob معي بخصوص هذا الطلب.</span>
+            </label>
+            <p class="err">لازم توافق على التواصل عشان نكمل طلبك.</p>
+          </div>
+
+          <div class="form-foot">
+            <button type="submit" class="btn btn-primary">إرسال الطلب</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ BUYER: SUCCESS ============ -->
+<main id="view-request-success" class="hidden">
+  <section>
+    <div class="wrap">
+      <div class="success-shell">
+        <div class="success-icon">✓</div>
+        <h2>تم استلام طلبك بنجاح</h2>
+        <div class="id-badge" id="reqSuccessId">MOT-000001</div>
+        <p class="msg">سيتم مراجعة طلبك ورفعه على الموقع خلال مدة تصل إلى يومين.</p>
+        <p class="msg">بعد نشر الطلب، سيبدأ أصحاب السيارات والتجار في تقديم عروضهم، وسنتواصل معك عند وجود عرض مناسب.</p>
+        <div class="keep-note">احتفظ برقم طلبك لمتابعة طلبك: <strong id="reqSuccessId2">MOT-000001</strong></div>
+        <a class="btn btn-navy" href="#home" data-nav="home">العودة للرئيسية</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PUBLIC REQUESTS BOARD ============ -->
+<main id="view-requests" class="hidden">
+  <div class="page-header">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="#home" data-nav="home">Motlob</a> / العربيات المطلوبة</p>
+      <h1>العربيات المطلوبة</h1>
+      <p>طلبات حقيقية من مشترين، راجعناها ونشرناها. قدّم عرضك على الطلب المناسب لك.</p>
+    </div>
+  </div>
+  <section style="padding-top:0;">
+    <div class="wrap board">
+      <aside class="filters">
+        <h3>فلترة الطلبات</h3>
+        <div class="field">
+          <label>الماركة</label>
+          <input type="text" id="fBrand" placeholder="مثال: Toyota">
+        </div>
+        <div class="field">
+          <label>الموديل</label>
+          <input type="text" id="fModel" placeholder="مثال: Corolla">
+        </div>
+        <div class="field">
+          <label>المحافظة</label>
+          <select id="fGov"><option value="">كل المحافظات</option></select>
+        </div>
+        <div class="field">
+          <label>ناقل الحركة</label>
+          <select id="fTrans">
+            <option value="">أي نوع</option>
+            <option value="أوتوماتيك">أوتوماتيك</option>
+            <option value="مانيوال">مانيوال</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>الوقود</label>
+          <select id="fFuel">
+            <option value="">أي نوع</option>
+            <option value="بنزين">بنزين</option>
+            <option value="ديزل">ديزل</option>
+            <option value="غاز">غاز</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>أقصى ميزانية</label>
+          <input type="number" id="fBudget" placeholder="مثال: 900000">
+        </div>
+        <div class="field">
+          <label>أقل موديل سنة</label>
+          <input type="number" id="fYear" placeholder="مثال: 2017">
+        </div>
+        <button class="btn btn-outline btn-sm btn-block" id="clearFiltersBtn" type="button">مسح الفلاتر</button>
+      </aside>
+      <div>
+        <div class="board-top">
+          <div class="search-box">
+            <input type="text" id="searchBox" placeholder="دور برقم الطلب أو الماركة أو الموديل...">
+          </div>
+          <span class="count-tag" id="resultsCount">0 طلب</span>
+        </div>
+        <div class="req-cards" id="requestsGrid"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ SELLER: OFFER FORM ============ -->
+<main id="view-offer" class="hidden">
+  <div class="page-header">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="#home" data-nav="home">Motlob</a> / <a href="#requests" data-nav="requests">العربيات المطلوبة</a> / قدّم عرضك</p>
+      <h1>قدّم عرضك</h1>
+      <p>راجع تفاصيل الطلب وقدّم عرضك، وهنراجعه ونتواصل معك لو مناسب.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="form-shell">
+        <div class="ctx-card" id="offerCtxCard"></div>
+        <form class="card" id="offerForm" novalidate>
+
+          <div class="notice notice-fee" role="note">
+            <span class="ni" aria-hidden="true">!</span>
+            <div class="nb">
+              <strong>في مبلغ لتأكيد إرسال العرض</strong>
+              تقديم العرض على الطلب ليه رسوم تأكيد، بتتحدد حسب سعر السيارة اللي بتعرضها. هتشوف المبلغ بالظبط قبل ما تبعت.
+              <details class="fee-details">
+                <summary>شوف جدول الرسوم</summary>
+                <div class="fee-table-wrap">
+                  <table class="fee-table">
+                    <thead><tr><th>سعر السيارة (جنيه)</th><th>رسوم تأكيد الإرسال</th></tr></thead>
+                    <tbody id="feeTableBody"></tbody>
+                  </table>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <p class="form-section-title">بياناتك</p>
+          <div class="grid2">
+            <div class="field" data-field="sName">
+              <label>الاسم <span class="req">*</span></label>
+              <input type="text" name="sName" placeholder="اسمك بالكامل">
+              <p class="err">من فضلك اكتب اسمك.</p>
+            </div>
+            <div class="field" data-field="sPhone">
+              <label>رقم الهاتف <span class="req">*</span></label>
+              <input type="tel" name="sPhone" placeholder="01xxxxxxxxx">
+              <p class="err">رقم الهاتف غير صحيح.</p>
+            </div>
+          </div>
+          <div class="field" data-field="sType">
+            <label>نوع البائع <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="sType" id="st1" value="مالك سيارة"><label for="st1">مالك سيارة</label>
+              <input type="radio" name="sType" id="st2" value="تاجر"><label for="st2">تاجر</label>
+              <input type="radio" name="sType" id="st3" value="معرض"><label for="st3">معرض</label>
+            </div>
+            <p class="err">من فضلك اختر نوع البائع.</p>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label>اسم المعرض (إن وجد)</label>
+              <input type="text" name="sDealerName" placeholder="اسم المعرض">
+            </div>
+            <div class="field" data-field="sGov">
+              <label>المحافظة <span class="req">*</span></label>
+              <select name="sGov"><option value="">اختر المحافظة</option></select>
+              <p class="err">من فضلك اختر المحافظة.</p>
+            </div>
+          </div>
+
+          <p class="form-section-title">السيارة المعروضة</p>
+          <p class="form-section-sub">الماركة والموديل اتسجلوا من الطلب اللي اخترته، كمّل بس بيانات عربيتك.</p>
+          <div class="grid2">
+            <div class="field" data-field="oBrand">
+              <label>الماركة <span class="req">*</span></label>
+              <input type="text" name="oBrand" placeholder="مثال: Toyota">
+              <p class="err">من فضلك اكتب الماركة.</p>
+            </div>
+            <div class="field" data-field="oModel">
+              <label>الموديل <span class="req">*</span></label>
+              <input type="text" name="oModel" placeholder="مثال: Corolla">
+              <p class="err">من فضلك اكتب الموديل.</p>
+            </div>
+            <div class="field" data-field="oYear">
+              <label>سنة السيارة <span class="req">*</span></label>
+              <input type="number" name="oYear" placeholder="2019" min="1980" max="2026">
+              <p class="err">أدخل سنة صحيحة.</p>
+            </div>
+            <div class="field" data-field="oKm">
+              <label>عدد الكيلومترات <span class="req">*</span></label>
+              <input type="number" name="oKm" placeholder="80000" min="0">
+              <p class="err">أدخل رقمًا صحيحًا.</p>
+            </div>
+            <div class="field" data-field="oPrice">
+              <label>السعر المطلوب (جنيه) <span class="req">*</span></label>
+              <input type="number" name="oPrice" placeholder="750000" min="0">
+              <p class="err">أدخل رقمًا صحيحًا.</p>
+            </div>
+          </div>
+
+          <div class="field" data-field="oTrans">
+            <label>ناقل الحركة <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="oTrans" id="ot1" value="أوتوماتيك"><label for="ot1">أوتوماتيك</label>
+              <input type="radio" name="oTrans" id="ot2" value="مانيوال"><label for="ot2">مانيوال</label>
+            </div>
+            <p class="err">من فضلك اختر ناقل الحركة.</p>
+          </div>
+          <div class="field" data-field="oFuel">
+            <label>الوقود <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="oFuel" id="of1" value="بنزين"><label for="of1">بنزين</label>
+              <input type="radio" name="oFuel" id="of2" value="ديزل"><label for="of2">ديزل</label>
+              <input type="radio" name="oFuel" id="of3" value="غاز"><label for="of3">غاز</label>
+              <input type="radio" name="oFuel" id="of4" value="Hybrid"><label for="of4">Hybrid</label>
+            </div>
+            <p class="err">من فضلك اختر نوع الوقود.</p>
+          </div>
+          <div class="field" data-field="oCondition">
+            <label>حالة السيارة <span class="req">*</span></label>
+            <div class="seg">
+              <input type="radio" name="oCondition" id="oc1" value="مستعملة"><label for="oc1">مستعملة</label>
+              <input type="radio" name="oCondition" id="oc2" value="جديدة"><label for="oc2">جديدة</label>
+            </div>
+            <p class="err">من فضلك اختر حالة السيارة.</p>
+          </div>
+
+          <div class="field" data-field="oDesc">
+            <label>وصف السيارة <span class="req">*</span></label>
+            <textarea name="oDesc" placeholder="اكتب وصفًا مختصرًا وصادقًا لحالة السيارة"></textarea>
+            <p class="err">من فضلك اكتب وصفًا للسيارة.</p>
+          </div>
+          <div class="field">
+            <label>أي ملاحظات إضافية</label>
+            <textarea name="oNotes" placeholder="اختياري"></textarea>
+          </div>
+
+          <div class="field">
+            <label>صور السيارة</label>
+            <label class="file-drop">
+              اضغط هنا لإرفاق صور السيارة (JPG / PNG)
+              <input type="file" id="offerImages" accept="image/*" multiple>
+            </label>
+            <div class="file-list" id="offerImagesList"></div>
+            <p class="hint">الصور تُستخدم للمراجعة فقط ولن تُنشر بدون موافقتك.</p>
+          </div>
+
+          <div class="fee-bar" aria-live="polite">
+            <span class="fl">رسوم تأكيد إرسال العرض<br><span style="font-weight:500;color:var(--gray-light);font-size:12.5px;">بتتحدد حسب "السعر المطلوب" اللي كتبته</span></span>
+            <span class="fv muted" id="offerFeeValue">اكتب السعر المطلوب لتعرف المبلغ</span>
+          </div>
+
+          <div class="form-foot">
+            <button type="submit" class="btn btn-primary">إرسال العرض</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ SELLER: OFFER SUCCESS ============ -->
+<main id="view-offer-success" class="hidden">
+  <section>
+    <div class="wrap">
+      <div class="success-shell">
+        <div class="success-icon">✓</div>
+        <h2>تم استلام عرضك بنجاح</h2>
+        <div class="id-badge" id="offerSuccessId">OFF-000001</div>
+        <p class="msg">سيتم مراجعة العرض والتواصل معك إذا كان مناسبًا للطلب.</p>
+        <a class="btn btn-navy" href="#requests" data-nav="requests">العودة لصفحة الطلبات</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ ADMIN LOGIN ============ -->
+<main id="view-admin-login" class="hidden">
+  <section>
+    <div class="wrap">
+      <div class="admin-login-shell">
+        <div class="card">
+          <div class="lock">🔒</div>
+          <h2>لوحة تحكم Motlob</h2>
+          <p class="sub">هذه المساحة مخصصة لإدارة الموقع فقط.</p>
+          <form id="adminLoginForm">
+            <div class="field" data-field="adminPass" style="text-align:right;">
+              <label>كلمة المرور</label>
+              <input type="text" name="adminPass" placeholder="اكتب كلمة المرور" autocomplete="off">
+              <p class="err">كلمة المرور غير صحيحة.</p>
+            </div>
+            <button type="submit" class="btn btn-navy btn-block">دخول</button>
+          </form>
+          <div class="demo-note">هذه بوابة دخول تجريبية من جهة الواجهة فقط لأغراض العرض (كلمة المرور: <strong>motlob2025</strong>). في نسخة الإنتاج يجب استبدالها بمصادقة حقيقية من طرف الخادم (Supabase Auth) قبل النشر الفعلي.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ ADMIN DASHBOARD ============ -->
+<main id="view-admin" class="hidden">
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <div class="brand-row"><img src="motlob-logo.jpg" alt="Motlob"></div>
+      <nav class="admin-nav">
+        <a href="#admin" data-nav="admin" class="active">نظرة عامة</a>
+        <a href="#home" data-nav="home">مشاهدة الموقع</a>
+      </nav>
+      <div class="logout"><button class="btn btn-outline btn-sm btn-block" id="adminLogoutBtn">تسجيل الخروج</button></div>
+    </aside>
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <h1>لوحة تحكم الطلبات</h1>
+        <span class="count-tag" id="adminUpdated"></span>
+      </div>
+
+      <div class="stat-grid" id="statGrid"></div>
+
+      <div class="admin-toolbar">
+        <div class="search-box"><input type="text" id="adminSearch" placeholder="دور برقم الطلب، اسم العميل، رقم الهاتف، الماركة..."></div>
+        <div class="toolbar-filters">
+          <select id="adminStatusFilter">
+            <option value="">كل الحالات</option>
+            <option value="NEW">جديد</option>
+            <option value="UNDER_REVIEW">قيد المراجعة</option>
+            <option value="APPROVED">تمت الموافقة</option>
+            <option value="PUBLISHED">منشور</option>
+            <option value="HAS_OFFERS">به عروض</option>
+            <option value="COMPLETED">مكتمل</option>
+            <option value="REJECTED">مرفوض</option>
+          </select>
+          <input type="text" id="adminGovFilter" placeholder="المحافظة">
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>رقم الطلب</th>
+              <th>العميل</th>
+              <th>السيارة</th>
+              <th>الميزانية</th>
+              <th>المحافظة</th>
+              <th>الحالة</th>
+              <th>التاريخ</th>
+              <th>العروض</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+<div id="drawerRoot"></div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="motlob-logo.jpg" alt="Motlob"></div>
+        <p style="font-size:14px;line-height:1.8;max-width:38ch;">منصة Reverse Marketplace لطلب السيارات في مصر. اطلب عربيتك، وخلي العروض تيجيلك.</p>
+      </div>
+      <div>
+        <h4>الموقع</h4>
+        <ul>
+          <li><a href="#home" data-nav="home">الرئيسية</a></li>
+          <li><a href="#requests" data-nav="requests">العربيات المطلوبة</a></li>
+          <li><a href="#new-request" data-nav="new-request">اطلب عربيتك</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>للتجار وأصحاب المعارض</h4>
+        <ul>
+          <li><a href="#requests" data-nav="requests">شوف الطلبات المتاحة</a></li>
+          <li><a href="#admin-login" data-nav="admin-login">لوحة التحكم</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Motlob. جميع الحقوق محفوظة.</span>
+      <span>مصر</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   0) DATA LAYER
+   Uses window.storage when available (shared demo dataset),
+   falls back to an in-memory store when it is not (e.g. the
+   file opened directly outside the Claude artifact runtime).
+   NOTE: this is a front-end demo only. A real production
+   deployment needs a real backend (see notes at bottom).
+========================================================= */
+const GOVERNORATES = ["القاهرة","الجيزة","الإسكندرية","الشرقية","الدقهلية","القليوبية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","بني سويف","الفيوم","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
+
+const STATUS_LABEL = {
+  NEW:"جديد", UNDER_REVIEW:"قيد المراجعة", APPROVED:"تمت الموافقة",
+  PUBLISHED:"منشور", HAS_OFFERS:"به عروض", COMPLETED:"مكتمل", REJECTED:"مرفوض"
+};
+const STATUS_BADGE = {
+  NEW:"badge-new", UNDER_REVIEW:"badge-review", APPROVED:"badge-review",
+  PUBLISHED:"badge-published", HAS_OFFERS:"badge-offers", COMPLETED:"badge-completed", REJECTED:"badge-rejected"
+};
+const OFFER_STATUS_LABEL = {
+  NEW:"جديد", REVIEWING:"قيد المراجعة", SHORTLISTED:"مختار مبدئيًا",
+  CONTACTED:"تم التواصل", ACCEPTED:"مقبول", REJECTED:"مرفوض", SOLD:"تم البيع"
+};
+
+let mem = { requests: [], offers: [], seq: { req: 0, off: 0 } };
+let storageReady = false;
+
+async function loadDB(){
+  try{
+    if(window.storage){
+      const res = await window.storage.get('motlob-db', true);
+      if(res && res.value){ mem = JSON.parse(res.value); storageReady = true; return; }
+    }
+  }catch(e){ /* key not found yet, fall through to seed */ }
+  storageReady = !!window.storage;
+  await seedDemoData();
+  await saveDB();
+}
+
+async function saveDB(){
+  try{
+    if(window.storage){ await window.storage.set('motlob-db', JSON.stringify(mem), true); }
+  }catch(e){ console.error('Storage error, continuing in-memory only:', e); }
+}
+
+function nextId(kind){
+  if(kind === 'req'){ mem.seq.req += 1; return 'MOT-' + String(mem.seq.req).padStart(6,'0'); }
+  mem.seq.off += 1; return 'OFF-' + String(mem.seq.off).padStart(6,'0');
+}
+
+async function seedDemoData(){
+  if(mem.requests.length) return;
+  const now = Date.now();
+  const demo = [
+    {brand:"Toyota", model:"Corolla", yearFrom:2018, yearTo:2021, budgetMin:700000, budgetMax:850000, maxKm:120000, transmission:"أوتوماتيك", fuel:"بنزين", condition:"مستعملة", governorate:"الشرقية", city:"العاشر من رمضان", name:"عميل تجريبي 1", phone:"01000000001", extra:"لون فاتح ومفيش حوادث.", status:"PUBLISHED"},
+    {brand:"Hyundai", model:"Elantra", yearFrom:2019, yearTo:2022, budgetMin:800000, budgetMax:950000, maxKm:100000, transmission:"أوتوماتيك", fuel:"بنزين", condition:"مستعملة", governorate:"القاهرة", city:"مدينة نصر", name:"عميل تجريبي 2", phone:"01000000002", extra:"", status:"PUBLISHED"},
+    {brand:"Chevrolet", model:"Optra", yearFrom:2015, yearTo:2018, budgetMin:400000, budgetMax:500000, maxKm:150000, transmission:"مانيوال", fuel:"بنزين", condition:"مستعملة", governorate:"الجيزة", city:"6 أكتوبر", name:"عميل تجريبي 3", phone:"01000000003", extra:"يفضل صيانة توكيل.", status:"NEW"},
+    {brand:"Kia", model:"Cerato", yearFrom:2020, yearTo:2023, budgetMin:900000, budgetMax:1100000, maxKm:80000, transmission:"أوتوماتيك", fuel:"بنزين", condition:"لا يهم", governorate:"الإسكندرية", city:"سموحة", name:"عميل تجريبي 4", phone:"01000000004", extra:"", status:"HAS_OFFERS"},
+  ];
+  demo.forEach((d,i)=>{
+    const id = nextId('req');
+    mem.requests.push({
+      id, createdAt: now - (i+1)*3600*1000*7, status: d.status,
+      buyer:{name:d.name, phone:d.phone, governorate:d.governorate, city:d.city},
+      car:{brand:d.brand, model:d.model, yearFrom:d.yearFrom, yearTo:d.yearTo, budgetMin:d.budgetMin, budgetMax:d.budgetMax, maxKm:d.maxKm, transmission:d.transmission, fuel:d.fuel, condition:d.condition, extra:d.extra},
+      adminNotes: []
+    });
+  });
+  // one demo offer for the HAS_OFFERS request
+  const targetReq = mem.requests.find(r=>r.status==="HAS_OFFERS");
+  if(targetReq){
+    const oid = nextId('off');
+    mem.offers.push({
+      id: oid, requestId: targetReq.id, createdAt: now - 3600*1000*20, status:"NEW",
+      seller:{name:"معرض تجريبي", phone:"01100000000", type:"معرض", dealerName:"معرض النجاح للسيارات", governorate:"الإسكندرية"},
+      car:{brand:targetReq.car.brand, model:targetReq.car.model, year:2021, km:60000, price:980000, transmission:"أوتوماتيك", fuel:"بنزين", condition:"مستعملة", description:"سيارة بحالة ممتازة، فبريكا أصلي بالكامل.", notes:"", images:[]}
+    });
+  }
+}
+
+/* =========================================================
+   1) ROUTER
+========================================================= */
+const VIEWS = ["home","new-request","request-success","requests","offer","offer-success","admin-login","admin"];
+let currentOfferRequestId = null;
+let ADMIN_AUTHED = false;
+const ADMIN_PASSWORD = "motlob2025"; // demo-only, front-end gate
+
+function showView(name, opts){
+  opts = opts || {};
+  if(name === "admin" && !ADMIN_AUTHED){ name = "admin-login"; }
+  VIEWS.forEach(v=>{
+    const el = document.getElementById('view-'+v);
+    if(el) el.classList.toggle('hidden', v !== name);
+  });
+  document.querySelectorAll('.nav-links a, .admin-nav a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.nav === name);
+  });
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+  closeDrawer();
+  if(name === "requests") renderPublicBoard();
+  if(name === "home") renderLatest();
+  if(name === "admin") renderAdmin();
+  if(name === "offer") renderOfferContext(opts.requestId || currentOfferRequestId);
+}
+
+function routeFromHash(){
+  const hash = (location.hash || '#home').replace('#','');
+  if(hash.startsWith('offer/')){
+    currentOfferRequestId = hash.split('/')[1];
+    showView('offer', {requestId: currentOfferRequestId});
+    return;
+  }
+  const map = {home:"home","new-request":"new-request",requests:"requests","admin-login":"admin-login",admin:"admin"};
+  showView(map[hash] || "home");
+}
+
+document.body.addEventListener('click', function(e){
+  const a = e.target.closest('[data-nav]');
+  if(a){
+    e.preventDefault();
+    const target = a.dataset.nav;
+    location.hash = '#' + target;
+  }
+});
+window.addEventListener('hashchange', routeFromHash);
+
+document.getElementById('burgerBtn').addEventListener('click', function(){
+  const links = document.querySelector('.nav-links');
+  const open = links.style.display === 'flex';
+  links.style.display = open ? 'none' : 'flex';
+  links.style.cssText += open ? '' : 'position:absolute;top:72px;right:0;left:0;background:#fff;flex-direction:column;padding:16px 24px;border-bottom:1px solid var(--line);gap:14px;';
+});
+
+/* =========================================================
+   2) TOAST
+========================================================= */
+let toastTimer;
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2600);
+}
+
+/* =========================================================
+   3) VALIDATION HELPERS
+========================================================= */
+function setError(container, fieldName, hasError){
+  const field = container.querySelector(`[data-field="${fieldName}"]`);
+  if(field) field.classList.toggle('has-error', hasError);
+}
+function isValidPhone(v){ return /^01[0125][0-9]{8}$/.test((v||'').trim()); }
+function radioValue(form, name){
+  const el = form.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : '';
+}
+
+// keep segmented radio labels visually in sync
+document.body.addEventListener('change', function(e){
+  if(e.target.matches('.seg input[type=radio]')){
+    const group = e.target.closest('.seg');
+    group.querySelectorAll('label').forEach(l=>l.classList.remove('checked'));
+    const lbl = group.querySelector(`label[for="${e.target.id}"]`);
+    if(lbl) lbl.classList.add('checked');
+  }
+});
+
+/* =========================================================
+   4) POPULATE GOVERNORATE SELECTS
+========================================================= */
+function fillGovSelect(sel){
+  GOVERNORATES.forEach(g=>{
+    const o = document.createElement('option');
+    o.value = g; o.textContent = g;
+    sel.appendChild(o);
+  });
+}
+document.querySelectorAll('select[name="governorate"], select[name="sGov"], #fGov').forEach(fillGovSelect);
+
+/* =========================================================
+   4.5) FORMSPREE - every request / offer is emailed to the admin
+========================================================= */
+const FORMSPREE_URL = 'https://formspree.io/f/xbgjvjal';
+async function sendToFormspree(payload){
+  const res = await fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok){
+    let detail = '';
+    try{
+      const j = await res.json();
+      if(j && j.errors) detail = j.errors.map(x=>x.message).join(' | ');
+    }catch(_){ /* ignore */ }
+    throw new Error(detail || ('HTTP ' + res.status));
+  }
+}
+
+/* =========================================================
+   5) BUYER REQUEST FORM
+========================================================= */
+const requestForm = document.getElementById('requestForm');
+requestForm.addEventListener('submit', async function(e){
+  e.preventDefault();
+  const f = requestForm;
+  const data = {
+    name: f.name.value.trim(),
+    phone: f.phone.value.trim(),
+    governorate: f.governorate.value,
+    city: f.city.value.trim(),
+    brand: f.brand.value.trim(),
+    model: f.model.value.trim(),
+    yearFrom: parseInt(f.yearFrom.value,10),
+    yearTo: parseInt(f.yearTo.value,10),
+    budgetMin: parseInt(f.budgetMin.value,10),
+    budgetMax: parseInt(f.budgetMax.value,10),
+    maxKm: parseInt(f.maxKm.value,10),
+    transmission: radioValue(f,'transmission'),
+    fuel: radioValue(f,'fuel'),
+    condition: radioValue(f,'condition'),
+    extra: f.extra.value.trim(),
+    agree: f.agree.checked
+  };
+
+  let ok = true;
+  const check = (cond, field) => { setError(f, field, !cond); if(!cond) ok = false; };
+  check(data.name.length >= 3, 'name');
+  check(isValidPhone(data.phone), 'phone');
+  check(!!data.governorate, 'governorate');
+  check(data.city.length >= 2, 'city');
+  check(data.brand.length >= 2, 'brand');
+  check(data.model.length >= 1, 'model');
+  check(Number.isInteger(data.yearFrom) && data.yearFrom >= 1980 && data.yearFrom <= 2026, 'yearFrom');
+  check(Number.isInteger(data.yearTo) && data.yearTo >= data.yearFrom, 'yearTo');
+  check(Number.isInteger(data.budgetMin) && data.budgetMin >= 0, 'budgetMin');
+  check(Number.isInteger(data.budgetMax) && data.budgetMax >= data.budgetMin, 'budgetMax');
+  check(Number.isInteger(data.maxKm) && data.maxKm >= 0, 'maxKm');
+  check(!!data.transmission, 'transmission');
+  check(!!data.fuel, 'fuel');
+  check(!!data.condition, 'condition');
+  check(data.agree === true, 'agree');
+
+  if(!ok){
+    const firstError = f.querySelector('.has-error');
+    if(firstError) firstError.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const submitBtn = f.querySelector('button[type="submit"]');
+  submitBtn.disabled = true; submitBtn.textContent = 'جارٍ الإرسال...';
+
+  const id = nextId('req');
+
+  try{
+    await sendToFormspree({
+      _subject: `طلب عربية جديد ${id}: ${data.brand} ${data.model}`,
+      form_type: 'buyer_request',
+      request_id: id,
+      name: data.name,
+      phone: data.phone,
+      governorate: data.governorate,
+      city: data.city,
+      brand: data.brand,
+      model: data.model,
+      year_from: data.yearFrom,
+      year_to: data.yearTo,
+      budget_min: data.budgetMin,
+      budget_max: data.budgetMax,
+      max_km: data.maxKm,
+      transmission: data.transmission,
+      fuel: data.fuel,
+      condition: data.condition,
+      extra: data.extra || '-'
+    });
+  }catch(err){
+    console.error('Formspree error (request):', err);
+    mem.seq.req -= 1;   // give the id back, nothing was sent
+    submitBtn.disabled = false; submitBtn.textContent = 'إرسال الطلب';
+    toast('تعذر إرسال الطلب. تأكد من الاتصال بالإنترنت وحاول تاني.');
+    return;
+  }
+
+  mem.requests.unshift({
+    id, createdAt: Date.now(), status: "NEW",
+    buyer:{name:data.name, phone:data.phone, governorate:data.governorate, city:data.city},
+    car:{brand:data.brand, model:data.model, yearFrom:data.yearFrom, yearTo:data.yearTo, budgetMin:data.budgetMin, budgetMax:data.budgetMax, maxKm:data.maxKm, transmission:data.transmission, fuel:data.fuel, condition:data.condition, extra:data.extra},
+    adminNotes: []
+  });
+  await saveDB();
+
+  document.getElementById('reqSuccessId').textContent = id;
+  document.getElementById('reqSuccessId2').textContent = id;
+  f.reset();
+  f.querySelectorAll('.seg label.checked').forEach(l=>l.classList.remove('checked'));
+  f.querySelectorAll('.has-error').forEach(el=>el.classList.remove('has-error'));
+  submitBtn.disabled = false; submitBtn.textContent = 'إرسال الطلب';
+
+  showView('request-success');
+});
+
+/* =========================================================
+   6) PUBLIC REQUESTS BOARD
+========================================================= */
+function requestCardHTML(r, forAdmin){
+  const badgeClass = STATUS_BADGE[r.status] || 'badge-new';
+  const yearRange = `${r.car.yearFrom} - ${r.car.yearTo}`;
+  const budget = `${r.car.budgetMin.toLocaleString('en-US')} - ${r.car.budgetMax.toLocaleString('en-US')} جنيه`;
+  return `
+    <div class="req-card">
+      <div class="req-card-top">
+        <div>
+          <div class="rid">${r.id}</div>
+          <div class="car-name">${escapeHTML(r.car.brand)} ${escapeHTML(r.car.model)}</div>
+        </div>
+        <span class="badge ${badgeClass}">${STATUS_LABEL[r.status]}</span>
+      </div>
+      <div class="spec-list">
+        <div><div class="k">السنة</div><div class="v">${yearRange}</div></div>
+        <div><div class="k">الميزانية</div><div class="v">${budget}</div></div>
+        <div><div class="k">أقصى عداد</div><div class="v">${r.car.maxKm.toLocaleString('en-US')} كم</div></div>
+        <div><div class="k">المحافظة</div><div class="v">${escapeHTML(r.buyer.governorate)}</div></div>
+        <div><div class="k">الفتيس</div><div class="v">${escapeHTML(r.car.transmission)}</div></div>
+        <div><div class="k">الوقود</div><div class="v">${escapeHTML(r.car.fuel)}</div></div>
+      </div>
+      ${r.car.extra ? `<p class="notes-mini">${escapeHTML(r.car.extra)}</p>` : ''}
+      ${forAdmin ? '' : `<a class="btn btn-primary btn-sm" href="#offer/${r.id}">قدّم عرضك</a>`}
+    </div>`;
+}
+function escapeHTML(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderLatest(){
+  const grid = document.getElementById('latestRequestsGrid');
+  const published = mem.requests.filter(r=>['PUBLISHED','HAS_OFFERS'].includes(r.status)).slice(0,3);
+  grid.innerHTML = published.length
+    ? published.map(r=>requestCardHTML(r,false)).join('')
+    : `<div class="empty-state" style="grid-column:1/-1;"><div class="ei">🚗</div><h3>مفيش طلبات منشورة لسه</h3><p>كن أول من يطلب عربيته.</p><a class="btn btn-primary btn-sm" href="#new-request" data-nav="new-request">اطلب عربيتك</a></div>`;
+}
+
+function renderPublicBoard(){
+  const gov = document.getElementById('fGov');
+  const brand = document.getElementById('fBrand').value.trim().toLowerCase();
+  const model = document.getElementById('fModel').value.trim().toLowerCase();
+  const govVal = gov.value;
+  const trans = document.getElementById('fTrans').value;
+  const fuel = document.getElementById('fFuel').value;
+  const budget = parseInt(document.getElementById('fBudget').value,10);
+  const year = parseInt(document.getElementById('fYear').value,10);
+  const q = document.getElementById('searchBox').value.trim().toLowerCase();
+
+  let list = mem.requests.filter(r=>['PUBLISHED','HAS_OFFERS'].includes(r.status));
+  if(brand) list = list.filter(r=>r.car.brand.toLowerCase().includes(brand));
+  if(model) list = list.filter(r=>r.car.model.toLowerCase().includes(model));
+  if(govVal) list = list.filter(r=>r.buyer.governorate === govVal);
+  if(trans) list = list.filter(r=>r.car.transmission === trans);
+  if(fuel) list = list.filter(r=>r.car.fuel === fuel);
+  if(!isNaN(budget)) list = list.filter(r=>r.car.budgetMin <= budget);
+  if(!isNaN(year)) list = list.filter(r=>r.car.yearTo >= year);
+  if(q) list = list.filter(r =>
+    r.id.toLowerCase().includes(q) ||
+    r.car.brand.toLowerCase().includes(q) ||
+    r.car.model.toLowerCase().includes(q)
+  );
+
+  document.getElementById('resultsCount').textContent = `${list.length} طلب`;
+  const grid = document.getElementById('requestsGrid');
+  grid.innerHTML = list.length
+    ? list.map(r=>requestCardHTML(r,false)).join('')
+    : `<div class="empty-state"><div class="ei">🔍</div><h3>مفيش نتائج مطابقة</h3><p>جرّب تغيّر الفلاتر أو امسحها.</p></div>`;
+}
+['fBrand','fModel','fTrans','fFuel','fBudget','fYear','searchBox'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', renderPublicBoard);
+});
+document.getElementById('fGov').addEventListener('change', renderPublicBoard);
+document.getElementById('clearFiltersBtn').addEventListener('click', function(){
+  ['fBrand','fModel','fBudget','fYear','searchBox'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fGov').value = '';
+  document.getElementById('fTrans').value = '';
+  document.getElementById('fFuel').value = '';
+  renderPublicBoard();
+});
+
+/* =========================================================
+   7) SELLER OFFER FORM
+========================================================= */
+function renderOfferContext(requestId){
+  const r = mem.requests.find(x=>x.id === requestId);
+  const ctx = document.getElementById('offerCtxCard');
+  const form = document.getElementById('offerForm');
+  if(!r){
+    ctx.innerHTML = `<div><div class="rid">لا يوجد طلب محدد</div><div class="car">اختر طلبًا من صفحة "العربيات المطلوبة"</div></div>`;
+    form.classList.add('hidden');
+    return;
+  }
+  form.classList.remove('hidden');
+
+  // The seller already picked this request, so the car's brand/model come from it,
+  // and transmission/fuel/condition too whenever the buyer asked for something specific.
+  form.oBrand.value = r.car.brand;
+  form.oModel.value = r.car.model;
+  ['oBrand','oModel'].forEach(name=>{
+    const wrap = form.querySelector(`[data-field="${name}"]`);
+    if(wrap){ wrap.classList.add('hidden'); wrap.classList.remove('has-error'); }
+  });
+  [['oTrans','transmission'],['oFuel','fuel'],['oCondition','condition']].forEach(([field, key])=>{
+    const wrap = form.querySelector(`[data-field="${field}"]`);
+    if(!wrap) return;
+    const inputs = Array.from(wrap.querySelectorAll('input[type=radio]'));
+    const match = inputs.find(i => i.value === r.car[key]);   // no match => buyer said "لا يهم"
+    wrap.querySelectorAll('label.checked').forEach(l=>l.classList.remove('checked'));
+    inputs.forEach(i => { i.checked = (i === match); });
+    wrap.classList.toggle('hidden', !!match);
+    wrap.classList.remove('has-error');
+  });
+  ctx.innerHTML = `
+    <div>
+      <div class="rid">${r.id}</div>
+      <div class="car">مطلوب: ${escapeHTML(r.car.brand)} ${escapeHTML(r.car.model)}</div>
+      <div class="specs">${r.car.yearFrom}-${r.car.yearTo} · ${r.car.budgetMin.toLocaleString('en-US')}-${r.car.budgetMax.toLocaleString('en-US')} جنيه · حتى ${r.car.maxKm.toLocaleString('en-US')} كم · ${escapeHTML(r.buyer.governorate)}</div>
+    </div>
+    <a class="btn btn-outline-white btn-sm" href="#requests" data-nav="requests">تغيير الطلب</a>`;
+}
+
+/* ---- Offer confirmation fee (based on the seller's asking price) ---- */
+const OFFER_FEE_TIERS = [
+  { min: 0,         max: 300000,   fee: 75  },
+  { min: 300000,    max: 400000,   fee: 100 },
+  { min: 400000,    max: 500000,   fee: 125 },
+  { min: 500000,    max: 600000,   fee: 150 },
+  { min: 600000,    max: 700000,   fee: 175 },
+  { min: 700000,    max: 800000,   fee: 200 },
+  { min: 800000,    max: 900000,   fee: 225 },
+  { min: 900000,    max: 1000000,  fee: 250 },
+  { min: 1000000,   max: Infinity, fee: 300 }
+];
+const fmtNum = n => n.toLocaleString('en-US');
+function offerFeeTierIndex(price){
+  if(!Number.isFinite(price) || price < 0) return -1;
+  return OFFER_FEE_TIERS.findIndex(t => price >= t.min && price < t.max);
+}
+function tierLabel(t){
+  if(t.min === 0) return `أقل من ${fmtNum(t.max)}`;
+  if(t.max === Infinity) return `${fmtNum(t.min)} فأكثر`;
+  return `${fmtNum(t.min)} – أقل من ${fmtNum(t.max)}`;
+}
+function renderFeeTable(activeIdx){
+  const body = document.getElementById('feeTableBody');
+  body.innerHTML = OFFER_FEE_TIERS.map((t,i)=>
+    `<tr class="${i === activeIdx ? 'active' : ''}"><td>${tierLabel(t)}</td><td>${t.fee} جنيه</td></tr>`
+  ).join('');
+}
+function updateOfferFee(){
+  const raw = document.getElementById('offerForm').oPrice.value;
+  const price = raw === '' ? NaN : parseInt(raw, 10);
+  const idx = offerFeeTierIndex(price);
+  const out = document.getElementById('offerFeeValue');
+  if(idx === -1){
+    out.textContent = 'اكتب السعر المطلوب لتعرف المبلغ';
+    out.classList.add('muted');
+  } else {
+    out.textContent = `${OFFER_FEE_TIERS[idx].fee} جنيه`;
+    out.classList.remove('muted');
+  }
+  renderFeeTable(idx);
+}
+document.getElementById('offerForm').oPrice.addEventListener('input', updateOfferFee);
+updateOfferFee();
+
+let offerImageFiles = [];
+document.getElementById('offerImages').addEventListener('change', function(e){
+  offerImageFiles = offerImageFiles.concat(Array.from(e.target.files));
+  renderOfferImageList();
+  e.target.value = '';
+});
+function renderOfferImageList(){
+  const wrap = document.getElementById('offerImagesList');
+  wrap.innerHTML = offerImageFiles.map((f,i)=>`<span class="file-chip">${escapeHTML(f.name)}<button type="button" data-idx="${i}" aria-label="حذف">×</button></span>`).join('');
+  wrap.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', function(){
+      offerImageFiles.splice(parseInt(this.dataset.idx,10),1);
+      renderOfferImageList();
+    });
+  });
+}
+
+const offerForm = document.getElementById('offerForm');
+offerForm.addEventListener('submit', async function(e){
+  e.preventDefault();
+  const f = offerForm;
+  const r = mem.requests.find(x=>x.id === currentOfferRequestId);
+  if(!r){ toast('من فضلك اختر طلبًا أولًا.'); return; }
+
+  const data = {
+    sName: f.sName.value.trim(), sPhone: f.sPhone.value.trim(),
+    sType: radioValue(f,'sType'), sDealerName: f.sDealerName.value.trim(), sGov: f.sGov.value,
+    oBrand: f.oBrand.value.trim(), oModel: f.oModel.value.trim(),
+    oYear: parseInt(f.oYear.value,10), oKm: parseInt(f.oKm.value,10), oPrice: parseInt(f.oPrice.value,10),
+    oTrans: radioValue(f,'oTrans'), oFuel: radioValue(f,'oFuel'), oCondition: radioValue(f,'oCondition'),
+    oDesc: f.oDesc.value.trim(), oNotes: f.oNotes.value.trim()
+  };
+
+  let ok = true;
+  const check = (cond, field) => { setError(f, field, !cond); if(!cond) ok = false; };
+  check(data.sName.length >= 3, 'sName');
+  check(isValidPhone(data.sPhone), 'sPhone');
+  check(!!data.sType, 'sType');
+  check(!!data.sGov, 'sGov');
+  check(data.oBrand.length >= 2, 'oBrand');
+  check(data.oModel.length >= 1, 'oModel');
+  check(Number.isInteger(data.oYear) && data.oYear >= 1980 && data.oYear <= 2026, 'oYear');
+  check(Number.isInteger(data.oKm) && data.oKm >= 0, 'oKm');
+  check(Number.isInteger(data.oPrice) && data.oPrice >= 0, 'oPrice');
+  check(!!data.oTrans, 'oTrans');
+  check(!!data.oFuel, 'oFuel');
+  check(!!data.oCondition, 'oCondition');
+  check(data.oDesc.length >= 5, 'oDesc');
+
+  if(!ok){
+    const firstError = f.querySelector('.has-error');
+    if(firstError) firstError.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const submitBtn = f.querySelector('button[type="submit"]');
+  submitBtn.disabled = true; submitBtn.textContent = 'جارٍ الإرسال...';
+
+  const id = nextId('off');
+
+  try{
+    await sendToFormspree({
+      _subject: `عرض جديد ${id} على الطلب ${r.id}: ${data.oBrand} ${data.oModel}`,
+      form_type: 'seller_offer',
+      offer_id: id,
+      request_id: r.id,
+      request_summary: `${r.car.brand} ${r.car.model} | ${r.car.yearFrom}-${r.car.yearTo} | ميزانية ${r.car.budgetMin}-${r.car.budgetMax} | ${r.buyer.governorate}`,
+      seller_name: data.sName,
+      seller_phone: data.sPhone,
+      seller_type: data.sType,
+      dealer_name: data.sDealerName || '-',
+      seller_governorate: data.sGov,
+      brand: data.oBrand,
+      model: data.oModel,
+      year: data.oYear,
+      km: data.oKm,
+      price: data.oPrice,
+      confirmation_fee_egp: (OFFER_FEE_TIERS[offerFeeTierIndex(data.oPrice)] || {}).fee || '',
+      transmission: data.oTrans,
+      fuel: data.oFuel,
+      condition: data.oCondition,
+      description: data.oDesc,
+      notes: data.oNotes || '-',
+      images: offerImageFiles.map(fl=>fl.name).join(', ') || '-'
+    });
+  }catch(err){
+    console.error('Formspree error (offer):', err);
+    mem.seq.off -= 1;   // give the id back, nothing was sent
+    submitBtn.disabled = false; submitBtn.textContent = 'إرسال العرض';
+    toast('تعذر إرسال العرض. تأكد من الاتصال بالإنترنت وحاول تاني.');
+    return;
+  }
+
+  mem.offers.unshift({
+    id, requestId: r.id, createdAt: Date.now(), status: "NEW",
+    seller:{name:data.sName, phone:data.sPhone, type:data.sType, dealerName:data.sDealerName, governorate:data.sGov},
+    car:{brand:data.oBrand, model:data.oModel, year:data.oYear, km:data.oKm, price:data.oPrice, transmission:data.oTrans, fuel:data.oFuel, condition:data.oCondition, description:data.oDesc, notes:data.oNotes, images: offerImageFiles.map(fl=>fl.name)}
+  });
+  if(r.status === 'PUBLISHED') r.status = 'HAS_OFFERS';
+  await saveDB();
+
+  document.getElementById('offerSuccessId').textContent = id;
+  f.reset();
+  updateOfferFee();
+  offerImageFiles = []; renderOfferImageList();
+  f.querySelectorAll('.seg label.checked').forEach(l=>l.classList.remove('checked'));
+  f.querySelectorAll('.has-error').forEach(el=>el.classList.remove('has-error'));
+  submitBtn.disabled = false; submitBtn.textContent = 'إرسال العرض';
+
+  showView('offer-success');
+});
+
+/* =========================================================
+   8) ADMIN LOGIN (demo, front-end only)
+========================================================= */
+document.getElementById('adminLoginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const f = e.target;
+  const val = f.adminPass.value;
+  if(val === ADMIN_PASSWORD){
+    ADMIN_AUTHED = true;
+    f.reset();
+    setError(f,'adminPass', false);
+    location.hash = '#admin';
+  }else{
+    setError(f,'adminPass', true);
+  }
+});
+document.getElementById('adminLogoutBtn').addEventListener('click', function(){
+  ADMIN_AUTHED = false;
+  location.hash = '#home';
+  toast('تم تسجيل الخروج.');
+});
+
+/* =========================================================
+   9) ADMIN DASHBOARD
+========================================================= */
+function renderAdmin(){
+  const now = new Date();
+  document.getElementById('adminUpdated').textContent = 'آخر تحديث: ' + now.toLocaleTimeString('ar-EG');
+
+  const counts = { total: mem.requests.length, NEW:0, UNDER_REVIEW:0, PUBLISHED:0, HAS_OFFERS:0, COMPLETED:0, REJECTED:0 };
+  mem.requests.forEach(r=>{ if(counts[r.status] !== undefined) counts[r.status]++; });
+
+  const stats = [
+    {n: counts.total, l:'إجمالي الطلبات'},
+    {n: counts.NEW, l:'طلبات جديدة'},
+    {n: counts.UNDER_REVIEW, l:'قيد المراجعة'},
+    {n: counts.PUBLISHED, l:'منشورة'},
+    {n: counts.HAS_OFFERS, l:'بها عروض'},
+    {n: counts.COMPLETED, l:'مكتملة'},
+    {n: counts.REJECTED, l:'مرفوضة'},
+  ];
+  document.getElementById('statGrid').innerHTML = stats.map(s=>`<div class="stat-card"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join('');
+
+  renderAdminTable();
+}
+
+function renderAdminTable(){
+  const q = document.getElementById('adminSearch').value.trim().toLowerCase();
+  const statusF = document.getElementById('adminStatusFilter').value;
+  const govF = document.getElementById('adminGovFilter').value.trim().toLowerCase();
+
+  let list = [...mem.requests];
+  if(statusF) list = list.filter(r=>r.status === statusF);
+  if(govF) list = list.filter(r=>r.buyer.governorate.toLowerCase().includes(govF));
+  if(q) list = list.filter(r =>
+    r.id.toLowerCase().includes(q) ||
+    r.buyer.name.toLowerCase().includes(q) ||
+    r.buyer.phone.includes(q) ||
+    r.car.brand.toLowerCase().includes(q) ||
+    r.car.model.toLowerCase().includes(q)
+  );
+  list.sort((a,b)=>b.createdAt - a.createdAt);
+
+  const tbody = document.getElementById('adminTableBody');
+  if(!list.length){
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--gray-light);">لا توجد طلبات مطابقة</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(r=>{
+    const offersCount = mem.offers.filter(o=>o.requestId === r.id).length;
+    const dateStr = new Date(r.createdAt).toLocaleDateString('ar-EG');
+    let actions = `<span class="icon-link" data-action="open" data-id="${r.id}">فتح</span>`;
+    if(['NEW','UNDER_REVIEW'].includes(r.status)){
+      actions += ` · <span class="icon-link" data-action="publish" data-id="${r.id}">نشر</span>`;
+      actions += ` · <span class="icon-link" data-action="reject" data-id="${r.id}" style="color:var(--red);">رفض</span>`;
+    }
+    actions += ` · <span class="icon-link" data-action="delete" data-id="${r.id}" style="color:var(--gray-light);">حذف</span>`;
+    return `<tr>
+      <td class="mono">${r.id}</td>
+      <td>${escapeHTML(r.buyer.name)}</td>
+      <td>${escapeHTML(r.car.brand)} ${escapeHTML(r.car.model)}</td>
+      <td>${r.car.budgetMin.toLocaleString('en-US')}-${r.car.budgetMax.toLocaleString('en-US')}</td>
+      <td>${escapeHTML(r.buyer.governorate)}</td>
+      <td><span class="badge ${STATUS_BADGE[r.status]}">${STATUS_LABEL[r.status]}</span></td>
+      <td>${dateStr}</td>
+      <td>${offersCount}</td>
+      <td><div class="row-actions">${actions}</div></td>
+    </tr>`;
+  }).join('');
+}
+['adminSearch','adminGovFilter'].forEach(id=>document.getElementById(id).addEventListener('input', renderAdminTable));
+document.getElementById('adminStatusFilter').addEventListener('change', renderAdminTable);
+
+document.getElementById('adminTableBody').addEventListener('click', async function(e){
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const id = el.dataset.id;
+  const action = el.dataset.action;
+  const r = mem.requests.find(x=>x.id===id);
+  if(!r) return;
+
+  if(action === 'open') return openRequestDrawer(id);
+  if(action === 'publish'){
+    r.status = 'PUBLISHED';
+    await saveDB(); renderAdmin(); toast(`تم نشر الطلب ${id}`);
+  }
+  if(action === 'reject'){
+    r.status = 'REJECTED';
+    await saveDB(); renderAdmin(); toast(`تم رفض الطلب ${id}`);
+  }
+  if(action === 'delete'){
+    if(confirm(`هل أنت متأكد من حذف الطلب ${id}؟ سيتم حذف كل العروض المرتبطة به أيضًا.`)){
+      mem.requests = mem.requests.filter(x=>x.id!==id);
+      mem.offers = mem.offers.filter(x=>x.requestId!==id);
+      await saveDB(); renderAdmin(); toast(`تم حذف الطلب ${id}`);
+    }
+  }
+});
+
+/* ---------- request detail drawer ---------- */
+function closeDrawer(){ document.getElementById('drawerRoot').innerHTML = ''; }
+
+function openRequestDrawer(id){
+  const r = mem.requests.find(x=>x.id===id);
+  if(!r) return;
+  const offers = mem.offers.filter(o=>o.requestId===id).sort((a,b)=>b.createdAt-a.createdAt);
+
+  const html = `
+  <div class="overlay" id="drawerOverlay">
+    <div class="drawer">
+      <div class="drawer-head">
+        <h2>${r.id} — ${escapeHTML(r.car.brand)} ${escapeHTML(r.car.model)}</h2>
+        <button class="drawer-close" id="drawerCloseBtn">×</button>
+      </div>
+      <div class="drawer-body">
+
+        <div class="detail-block">
+          <h3>حالة الطلب</h3>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span class="badge ${STATUS_BADGE[r.status]}">${STATUS_LABEL[r.status]}</span>
+            <select id="drawerStatusSelect" class="status-select">
+              ${Object.keys(STATUS_LABEL).map(s=>`<option value="${s}" ${s===r.status?'selected':''}>${STATUS_LABEL[s]}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+
+        <div class="detail-block">
+          <h3>بيانات المشتري</h3>
+          <div class="kv-grid">
+            <div class="kv"><div class="k">الاسم</div><div class="v">${escapeHTML(r.buyer.name)}</div></div>
+            <div class="kv"><div class="k">الهاتف</div><div class="v">${escapeHTML(r.buyer.phone)}</div></div>
+            <div class="kv"><div class="k">المحافظة</div><div class="v">${escapeHTML(r.buyer.governorate)}</div></div>
+            <div class="kv"><div class="k">المنطقة</div><div class="v">${escapeHTML(r.buyer.city)}</div></div>
+          </div>
+        </div>
+
+        <div class="detail-block">
+          <h3>مواصفات السيارة المطلوبة</h3>
+          <div class="kv-grid">
+            <div class="kv"><div class="k">الماركة والموديل</div><div class="v">${escapeHTML(r.car.brand)} ${escapeHTML(r.car.model)}</div></div>
+            <div class="kv"><div class="k">السنة</div><div class="v">${r.car.yearFrom} - ${r.car.yearTo}</div></div>
+            <div class="kv"><div class="k">الميزانية</div><div class="v">${r.car.budgetMin.toLocaleString('en-US')} - ${r.car.budgetMax.toLocaleString('en-US')} جنيه</div></div>
+            <div class="kv"><div class="k">أقصى عداد</div><div class="v">${r.car.maxKm.toLocaleString('en-US')} كم</div></div>
+            <div class="kv"><div class="k">ناقل الحركة</div><div class="v">${escapeHTML(r.car.transmission)}</div></div>
+            <div class="kv"><div class="k">الوقود</div><div class="v">${escapeHTML(r.car.fuel)}</div></div>
+            <div class="kv"><div class="k">الحالة</div><div class="v">${escapeHTML(r.car.condition)}</div></div>
+          </div>
+          ${r.car.extra ? `<p style="margin-top:12px;font-size:13.5px;color:var(--gray);">${escapeHTML(r.car.extra)}</p>` : ''}
+        </div>
+
+        <div class="detail-block">
+          <h3>ملاحظات Admin (داخلية)</h3>
+          <div id="drawerNotes">
+            ${r.adminNotes.length ? r.adminNotes.map(n=>`<div class="note-item">${escapeHTML(n.text)}<div class="d">${new Date(n.date).toLocaleString('ar-EG')}</div></div>`).join('') : '<p style="font-size:13px;color:var(--gray-light);">لا توجد ملاحظات بعد.</p>'}
+          </div>
+          <div class="add-note-row">
+            <input type="text" id="drawerNoteInput" placeholder="اكتب ملاحظة... مثال: كلمت العميل">
+            <button class="btn btn-navy btn-sm" id="drawerAddNoteBtn">إضافة</button>
+          </div>
+        </div>
+
+        <div class="detail-block" style="margin-bottom:0;">
+          <h3>العروض (${offers.length})</h3>
+          ${offers.length ? offers.map(o=>`
+            <div class="offer-item">
+              <div class="offer-item-top">
+                <div>
+                  <div class="oid">${o.id}</div>
+                  <div class="car">${escapeHTML(o.car.brand)} ${escapeHTML(o.car.model)} — ${o.car.year}</div>
+                </div>
+                <select class="status-select offer-status-select" data-offer="${o.id}">
+                  ${Object.keys(OFFER_STATUS_LABEL).map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${OFFER_STATUS_LABEL[s]}</option>`).join('')}
+                </select>
+              </div>
+              <div class="kv-grid">
+                <div class="kv"><div class="k">البائع</div><div class="v">${escapeHTML(o.seller.name)} (${escapeHTML(o.seller.type)})</div></div>
+                <div class="kv"><div class="k">الهاتف</div><div class="v">${escapeHTML(o.seller.phone)}</div></div>
+                <div class="kv"><div class="k">السعر</div><div class="v">${o.car.price.toLocaleString('en-US')} جنيه</div></div>
+                <div class="kv"><div class="k">الكيلومترات</div><div class="v">${o.car.km.toLocaleString('en-US')} كم</div></div>
+                <div class="kv"><div class="k">ناقل الحركة</div><div class="v">${escapeHTML(o.car.transmission)}</div></div>
+                <div class="kv"><div class="k">الوقود</div><div class="v">${escapeHTML(o.car.fuel)}</div></div>
+              </div>
+              ${o.car.description ? `<p style="margin-top:10px;font-size:13px;color:var(--gray);">${escapeHTML(o.car.description)}</p>` : ''}
+              ${o.car.images && o.car.images.length ? `<p style="margin-top:8px;font-size:12px;color:var(--gray-light);">صور مرفقة: ${o.car.images.map(escapeHTML).join('، ')}</p>` : ''}
+            </div>
+          `).join('') : '<p style="font-size:13px;color:var(--gray-light);">لا توجد عروض على هذا الطلب بعد.</p>'}
+        </div>
+
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('drawerRoot').innerHTML = html;
+
+  document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
+  document.getElementById('drawerOverlay').addEventListener('click', function(e){
+    if(e.target.id === 'drawerOverlay') closeDrawer();
+  });
+
+  document.getElementById('drawerStatusSelect').addEventListener('change', async function(){
+    r.status = this.value;
+    await saveDB(); renderAdmin();
+    toast(`تم تحديث حالة الطلب إلى: ${STATUS_LABEL[r.status]}`);
+  });
+
+  document.getElementById('drawerAddNoteBtn').addEventListener('click', async function(){
+    const input = document.getElementById('drawerNoteInput');
+    const text = input.value.trim();
+    if(!text) return;
+    r.adminNotes.push({text, date: Date.now()});
+    await saveDB();
+    openRequestDrawer(id); // re-render drawer
+  });
+
+  document.querySelectorAll('.offer-status-select').forEach(sel=>{
+    sel.addEventListener('change', async function(){
+      const off = mem.offers.find(o=>o.id === this.dataset.offer);
+      if(off){ off.status = this.value; await saveDB(); toast(`تم تحديث حالة العرض ${off.id}`); }
+    });
+  });
+}
+
+/* =========================================================
+   10) BOOT
+========================================================= */
+async function boot(){
+  await loadDB();
+  routeFromHash();
+}
+boot();
+
+})();
+</script>
+</body>
+</html>
